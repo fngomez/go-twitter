@@ -1,17 +1,17 @@
 package service_test
 
 import (
-	"github.com/fngomez/go-twitter/service"
 	"testing"
+	"github.com/fngomez/go-twitter/service"
 )
 
 func TestPublishedTweetIsSaved(t *testing.T) {
 
-	var tweet string = "This is my first tweet"
+	tweet := "This is my first tweet"
 
 	service.PublishTweet(tweet)
 
-	if service.Tweet != tweet {
+	if service.GetTweet() != tweet {
 		t.Error("Expected tweet is", tweet)
 	}
 
