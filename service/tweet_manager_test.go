@@ -1,7 +1,7 @@
 package service_test
 
 import (
-	"gitlab.grupoesfera.com.ar/CAP-00082-GrupoEsfera-GO/src/service"
+	"github.com/fngomez/go-twitter/service"
 	"testing"
 )
 
