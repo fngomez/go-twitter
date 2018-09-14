@@ -1,11 +1,18 @@
 package service
 
-var _tweet string;
+import (
+	"github.com/fngomez/go-twitter/domain"
+	"time"
+)
 
-func PublishTweet(tweet string) {
-	_tweet = tweet;
+var _tweet *domain.Tweet;
+
+func PublishTweet(tweet *domain.Tweet) {
+	_tweet = tweet
+	aux := time.Now()
+	_tweet.Date = &aux
 }
 
-func GetTweet() string {
+func GetTweet() *domain.Tweet {
 	return _tweet;
 }
