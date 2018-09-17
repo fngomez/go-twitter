@@ -79,3 +79,17 @@ func (tweetManager *TweetManager) CountTweetsByUser(user string) int {
 func (tweetManager *TweetManager) GetTweetsByUser(user string) []*domain.Tweet{
 	return tweetManager.TweetsByUser[user]
 }
+
+func (tweetManager *TweetManager) DeleteTweet (user string, idTweet int) {
+	for  index ,tweet := range tweetManager.TweetsByUser[user] {
+		if tweet.Id == idTweet {
+			tweetManager.TweetsByUser[user] = deleteTweetFromSlice(tweetManager.TweetsByUser[user], index)
+		}
+	}
+
+	//TODO: terminar
+}
+
+func deleteTweetFromSlice(arr []*domain.Tweet, index int) []*domain.Tweet{
+	return append(arr[:index], arr[index+1:]...)
+}
