@@ -12,6 +12,10 @@ func InitializeService() {
 	_tweets = make([]*domain.Tweet, 0)
 }
 
+func isAuth(user domain.User) bool {
+
+}
+
 func PublishTweet(tweet *domain.Tweet) (id int, error error) {
 
 	if tweet.User == "" {
