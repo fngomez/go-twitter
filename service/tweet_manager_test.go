@@ -1,10 +1,10 @@
 package service_test
 
 import (
-	"testing"
 
 	"github.com/fngomez/go-twitter/domain"
 	"github.com/fngomez/go-twitter/service"
+	"testing"
 )
 
 func TestPublishedTweetIsSaved(t *testing.T) {
