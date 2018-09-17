@@ -6,29 +6,42 @@ import (
 	"errors"
 )
 
-var _tweet *domain.Tweet;
+var _tweets []*domain.Tweet;
 
-func PublishTweet(tweet *domain.Tweet) error {
+func InitializeService() {
+	_tweets = make([]*domain.Tweet, 0)
+}
+
+func PublishTweet(tweet *domain.Tweet) (id int, error error) {
 
 	if tweet.User == "" {
-		return errors.New("user is required")
+		return -1, errors.New("user is required")
 	}
 
 	if len(tweet.Text) == 0 {
-		return errors.New("text is required")
+		return -1, errors.New("text is required")
 	}
 
 	if len(tweet.Text) > 140 {
-		return errors.New("text exceeds 140 characters")
+		return -1, errors.New("text exceeds 140 characters")
 	}
 
-	_tweet = tweet
+	_tweets = append(_tweets, tweet)
 	aux := time.Now()
-	_tweet.Date = &aux
+	tweet.Date = &aux
+	tweet.Id = len(_tweets) -1
 
-	return nil
+	return tweet.Id, nil
+}
+
+func GetTweets() []*domain.Tweet {
+	return _tweets;
 }
 
 func GetTweet() *domain.Tweet {
-	return _tweet;
+	return _tweets[len(_tweets) - 1];
+}
+
+func GetTweetById(id int) *domain.Tweet {
+	return _tweets[id];
 }

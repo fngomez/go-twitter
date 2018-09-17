@@ -3,11 +3,12 @@ package domain
 import "time"
 
 type Tweet struct {
+	Id int
 	User string
 	Text string
 	Date *time.Time
 }
 
 func NewTweet(_user, _text string) *Tweet {
-	return &Tweet{_user, _text, nil};
+	return &Tweet{-1,_user, _text, nil};
 }

@@ -2,10 +2,8 @@ package service
 
 import "github.com/fngomez/go-twitter/domain"
 
-//var users []domain.User
-
-var _user *domain.User
+var users []*domain.User
 
 func RegisterUser(user *domain.User) {
-	_user = user
+	users = append(users, user)
 }
