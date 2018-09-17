@@ -5,41 +5,53 @@ import (
 	"github.com/fngomez/go-twitter/domain"
 )
 
-var registeredUsers []*domain.User
-
-var loggedUsers []*domain.User
-
-func RegisterUser(user *domain.User) {
-	registeredUsers = append(registeredUsers, user)
-	user.Id = len(registeredUsers) - 1
+type UserManager struct {
+	RegisteredUsers []*domain.User
+	LoggedUsers map[string]*domain.User
 }
 
-func IsAuth(user *domain.User) bool {
+func NewUserManager() UserManager {
+	var res = UserManager{}
+	res.initializeService()
+	return res
+}
 
-	var userInArray = searchRegisteredUserById(user.Id)
+func (userManager *UserManager) initializeService() {
+	userManager.RegisteredUsers = make([]*domain.User, 0)
+	userManager.LoggedUsers = make(map[string]*domain.User, 0)
+}
 
-	return IsSameUser(user, userInArray);
+func (userManager *UserManager) Register(user *domain.User) {
+	userManager.RegisteredUsers = append(userManager.RegisteredUsers, user)
+	user.Id = len(userManager.RegisteredUsers) - 1
+}
+
+func (userManager *UserManager) IsAuth(user *domain.User) bool {
+
+	var userInArray = userManager.searchRegisteredUserById(user.Id)
+
+	return isSameUser(user, userInArray);
 
 	return true;
 }
 
 // Returns user pointer, if not, returns nil.
-func searchRegisteredUserById(id int) *domain.User{
+func (userManager *UserManager) searchRegisteredUserById(id int) *domain.User{
 
-	if id < 0 || id > len(registeredUsers)-1 {
+	if id < 0 || id > len(userManager.RegisteredUsers)-1 {
 		return nil
 	}
 
-	return registeredUsers[id]
+	return userManager.RegisteredUsers[id]
 }
 
-func searchLoggedUserById(id int) *domain.User{
+func (userManager *UserManager) searchLoggedUserById(id int) *domain.User{
 
-	if id < 0 || id > len(loggedUsers)-1 {
+	if id < 0 || id > len(userManager.LoggedUsers)-1 {
 		return nil
 	}
 
-	for _, user := range loggedUsers {
+	for _, user := range userManager.LoggedUsers {
 		if user.Id == id {
 			return user
 		}
@@ -48,9 +60,9 @@ func searchLoggedUserById(id int) *domain.User{
 	return  nil
 }
 
-func searchLoggedUserByEmail(email string) *domain.User{
+func (userManager *UserManager) searchRegisteredUserByEmail(email string) *domain.User{
 
-	for _, user := range loggedUsers {
+	for _, user := range userManager.RegisteredUsers {
 		if user.Email == email {
 			return user
 		}
@@ -59,19 +71,24 @@ func searchLoggedUserByEmail(email string) *domain.User{
 	return  nil
 }
 
-func IsSameUser(userOne, userTwo *domain.User) bool {
+func isSameUser(userOne, userTwo *domain.User) bool {
 	 return userOne.Email == userTwo.Email
 }
 
-func Login(email, password string) error {
+func (userManager *UserManager) Login(email, password string) error {
 
-	var ptrUserLogged = searchLoggedUserByEmail(email)
+	var user = userManager.searchRegisteredUserByEmail(email)
 
-	if ptrUserLogged == nil && ptrUserLogged.Password != password{
+	if user == nil || user.Password != password {
 		return errors.New("Wrong User or Password")
 	}
 
-	//TODO: terminar
-	return nil
+	userManager.LoggedUsers[email] = user
 
+	return nil
+}
+
+func (userManager *UserManager) Logout(email string) {
+
+	delete(userManager.LoggedUsers, email)
 }
