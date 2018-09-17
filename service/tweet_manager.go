@@ -1,15 +1,17 @@
 package service
 
 import (
+	"errors"
 	"github.com/fngomez/go-twitter/domain"
 	"time"
-	"errors"
 )
 
 var _tweets []*domain.Tweet;
+var _tweetsByUser map[string][]*domain.Tweet
 
 func InitializeService() {
 	_tweets = make([]*domain.Tweet, 0)
+	_tweetsByUser = make(map[string][]*domain.Tweet)
 }
 
 func isAuth(user domain.User) bool {
@@ -30,12 +32,20 @@ func PublishTweet(tweet *domain.Tweet) (id int, error error) {
 		return -1, errors.New("text exceeds 140 characters")
 	}
 
+	addUserTweet(tweet, tweet.User)
+
+	return tweet.Id, nil
+}
+
+func addUserTweet(tweet *domain.Tweet, user string) {
+
 	_tweets = append(_tweets, tweet)
 	aux := time.Now()
 	tweet.Date = &aux
 	tweet.Id = len(_tweets) -1
 
-	return tweet.Id, nil
+	_tweetsByUser[user] = append(_tweetsByUser[user], tweet)
+
 }
 
 func GetTweets() []*domain.Tweet {
@@ -60,4 +70,8 @@ func CountTweetsByUser(user string) int {
 	}
 
 	return tweets
+}
+
+func GetTweetsByUser(user string) []*domain.Tweet{
+	return _tweetsByUser[user]
 }
