@@ -1,17 +1,22 @@
 package service
 
-import "github.com/fngomez/go-twitter/domain"
+import (
+	"errors"
+	"github.com/fngomez/go-twitter/domain"
+)
 
-var users []*domain.User
+var registeredUsers []*domain.User
+
+var loggedUsers []*domain.User
 
 func RegisterUser(user *domain.User) {
-	users = append(users, user)
-	user.Id = len(users) - 1
+	registeredUsers = append(registeredUsers, user)
+	user.Id = len(registeredUsers) - 1
 }
 
 func IsAuth(user *domain.User) bool {
 
-	var userInArray = searchById(user.Id)
+	var userInArray = searchRegisteredUserById(user.Id)
 
 	return IsSameUser(user, userInArray);
 
@@ -19,15 +24,54 @@ func IsAuth(user *domain.User) bool {
 }
 
 // Returns user pointer, if not, returns nil.
-func searchById(id int) *domain.User{
+func searchRegisteredUserById(id int) *domain.User{
 
-	if( id < 0 || id > len(users)-1 ){
+	if id < 0 || id > len(registeredUsers)-1 {
 		return nil
 	}
 
-	return users[id]
+	return registeredUsers[id]
+}
+
+func searchLoggedUserById(id int) *domain.User{
+
+	if id < 0 || id > len(loggedUsers)-1 {
+		return nil
+	}
+
+	for _, user := range loggedUsers {
+		if user.Id == id {
+			return user
+		}
+	}
+
+	return  nil
+}
+
+func searchLoggedUserByEmail(email string) *domain.User{
+
+	for _, user := range loggedUsers {
+		if user.Email == email {
+			return user
+		}
+	}
+
+	return  nil
 }
 
 func IsSameUser(userOne, userTwo *domain.User) bool {
 	 return userOne.Email == userTwo.Email
+}
+
+func Login(email, password string) error {
+
+	var ptrUserLogged = searchLoggedUserByEmail(email)
+
+	if ptrUserLogged == nil && ptrUserLogged.Password != password{
+		return errors.New("Wrong User or Password")
+	}
+
+	//TODO: terminar
+	return nil
+
 }
