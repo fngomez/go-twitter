@@ -18,3 +18,19 @@ func TestCanGetAPrintableTweet(t *testing.T) {
 	}
 
 }
+
+func TestCanGetAStringFromATweet(t *testing.T) {
+
+	// Initialization
+	tweet := domain.NewTweet("grupoesfera", "This is my tweet")
+
+	// Operation
+	text := tweet.String()
+
+	// Validation
+	expectedText := "@grupoesfera: This is my tweet"
+	if text != expectedText {
+		t.Errorf("The expected text is %s but was %s", expectedText, text)
+	}
+
+}
