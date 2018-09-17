@@ -7,8 +7,8 @@ import (
 )
 
 type TweetManager struct {
-	Tweets []*domain.Tweet
-	TweetsByUser map[string][]*domain.Tweet
+	Tweets []domain.Tweet
+	TweetsByUser map[string][]domain.Tweet
 }
 
 func NewTweetManager() TweetManager {
@@ -18,49 +18,49 @@ func NewTweetManager() TweetManager {
 }
 
 func (tweetManager *TweetManager) initializeService() {
-	tweetManager.Tweets = make([]*domain.Tweet, 0)
-	tweetManager.TweetsByUser = make(map[string][]*domain.Tweet)
+	tweetManager.Tweets = make([]domain.Tweet, 0)
+	tweetManager.TweetsByUser = make(map[string][]domain.Tweet)
 }
 
-func (tweetManager *TweetManager) PublishTweet(tweet *domain.Tweet) (id int, error error) {
+func (tweetManager *TweetManager) PublishTweet(tweet domain.Tweet) (id int, error error) {
 
-	if tweet.User == "" {
+	if tweet.GetUser() == "" {
 		return -1, errors.New("user is required")
 	}
 
-	if len(tweet.Text) == 0 {
+	if len(tweet.GetText()) == 0 {
 		return -1, errors.New("text is required")
 	}
 
-	if len(tweet.Text) > 140 {
+	if len(tweet.GetText()) > 140 {
 		return -1, errors.New("text exceeds 140 characters")
 	}
 
-	tweetManager.addUserTweet(tweet, tweet.User)
+	tweetManager.addUserTweet(tweet, tweet.GetUser())
 
-	return tweet.Id, nil
+	return tweet.GetId(), nil
 }
 
-func (tweetManager *TweetManager) addUserTweet(tweet *domain.Tweet, user string) {
+func (tweetManager *TweetManager) addUserTweet(tweet domain.Tweet, user string) {
 
 	tweetManager.Tweets = append(tweetManager.Tweets, tweet)
 	aux := time.Now()
-	tweet.Date = &aux
-	tweet.Id = len(tweetManager.Tweets) -1
+	tweet.SetDate(&aux)
+	tweet.SetId(len(tweetManager.Tweets) -1)
 
 	tweetManager.TweetsByUser[user] = append(tweetManager.TweetsByUser[user], tweet)
 
 }
 
-func (tweetManager *TweetManager) GetTweets() []*domain.Tweet {
+func (tweetManager *TweetManager) GetTweets() []domain.Tweet {
 	return tweetManager.Tweets
 }
 
-func (tweetManager *TweetManager) GetTweet() *domain.Tweet {
+func (tweetManager *TweetManager) GetTweet() domain.Tweet {
 	return tweetManager.Tweets[len(tweetManager.Tweets) - 1]
 }
 
-func (tweetManager *TweetManager) GetTweetById(id int) *domain.Tweet {
+func (tweetManager *TweetManager) GetTweetById(id int) domain.Tweet {
 	return tweetManager.Tweets[id]
 }
 
@@ -68,7 +68,7 @@ func (tweetManager *TweetManager) CountTweetsByUser(user string) int {
 	var tweets = 0
 
 	for _, tweet := range tweetManager.Tweets {
-		if tweet.User == user {
+		if tweet.GetUser() == user {
 			tweets++
 		}
 	}
@@ -76,13 +76,13 @@ func (tweetManager *TweetManager) CountTweetsByUser(user string) int {
 	return tweets
 }
 
-func (tweetManager *TweetManager) GetTweetsByUser(user string) []*domain.Tweet{
+func (tweetManager *TweetManager) GetTweetsByUser(user string) []domain.Tweet{
 	return tweetManager.TweetsByUser[user]
 }
 
 func (tweetManager *TweetManager) DeleteTweet (user string, idTweet int) {
 	for  index ,tweet := range tweetManager.TweetsByUser[user] {
-		if tweet.Id == idTweet {
+		if tweet.GetId() == idTweet {
 			tweetManager.TweetsByUser[user] = deleteTweetFromSlice(tweetManager.TweetsByUser[user], index)
 		}
 	}
@@ -90,6 +90,6 @@ func (tweetManager *TweetManager) DeleteTweet (user string, idTweet int) {
 	//TODO: terminar
 }
 
-func deleteTweetFromSlice(arr []*domain.Tweet, index int) []*domain.Tweet{
+func deleteTweetFromSlice(arr []domain.Tweet, index int) []domain.Tweet{
 	return append(arr[:index], arr[index+1:]...)
 }
