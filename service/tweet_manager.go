@@ -36,6 +36,10 @@ func (tweetManager *TweetManager) PublishTweet(tweet domain.Tweet) (id int, erro
 		return -1, errors.New("text exceeds 140 characters")
 	}
 
+	if tweetManager.isDuplicated(tweet) {
+		return -1, errors.New("duplicated tweet")
+	}
+
 	tweetManager.addUserTweet(tweet, tweet.GetUser())
 
 	return tweet.GetId(), nil
@@ -100,6 +104,16 @@ func (tweetManager *TweetManager) EditTweet(user string, idTweet int, text strin
 			tweetManager.Tweets[index].SetText(text)
 		}
 	}
+}
+
+func (tweetManager *TweetManager) isDuplicated(newTweet domain.Tweet) bool {
+	for _, tweet := range tweetManager.TweetsByUser[newTweet.GetUser()] {
+		if tweet.GetText() == newTweet.GetText() && tweet.GetUser() == newTweet.GetUser() {
+			return true
+		}
+	}
+
+	return false
 }
 
 func deleteTweetFromSlice(arr []domain.Tweet, index int) []domain.Tweet{
