@@ -9,5 +9,6 @@ type Tweet interface {
 	GetId() int
 	SetId(int)
 	SetDate(*time.Time)
+	SetText(string)
 	PrintableTweet() string
 }

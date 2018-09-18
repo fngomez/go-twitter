@@ -80,14 +80,26 @@ func (tweetManager *TweetManager) GetTweetsByUser(user string) []domain.Tweet{
 	return tweetManager.TweetsByUser[user]
 }
 
-func (tweetManager *TweetManager) DeleteTweet (user string, idTweet int) {
+func (tweetManager *TweetManager) DeleteTweet(user string, idTweet int) {
 	for  index ,tweet := range tweetManager.TweetsByUser[user] {
 		if tweet.GetId() == idTweet {
 			tweetManager.TweetsByUser[user] = deleteTweetFromSlice(tweetManager.TweetsByUser[user], index)
 		}
 	}
 
-	//TODO: terminar
+	for index, tweet := range tweetManager.Tweets {
+		if tweet.GetId() == idTweet {
+			tweetManager.Tweets = deleteTweetFromSlice(tweetManager.Tweets, index)
+		}
+	}
+}
+
+func (tweetManager *TweetManager) EditTweet(user string, idTweet int, text string) {
+	for index, tweet := range tweetManager.Tweets {
+		if tweet.GetId() == idTweet {
+			tweetManager.Tweets[index].SetText(text)
+		}
+	}
 }
 
 func deleteTweetFromSlice(arr []domain.Tweet, index int) []domain.Tweet{
