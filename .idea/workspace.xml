@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a9cfb94-d762-4af2-abe0-1d640de16a11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tweeter_rest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tweeter.go" beforeDir="false" afterPath="$PROJECT_DIR$/tweeter.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,22 +23,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="25" />
+          <entry key="go" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="25" />
+          <entry key="Go" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="3412" />
+          <entry key="go" value="3474" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="3412" />
+          <entry key="Go" value="3474" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -51,22 +52,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/tweet_manager.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-              <folding>
-                <element signature="e#17#85#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tweeter.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="135">
+              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
               <folding>
                 <element signature="e#14#149#0" expanded="true" />
               </folding>
@@ -74,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/domain/tweet.go">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tweeter_rest.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+            <state relative-caret-position="75">
+              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -104,12 +93,13 @@
         <option value="$PROJECT_DIR$/main/tweeter.go" />
         <option value="$PROJECT_DIR$/domain/tweet_domain.go" />
         <option value="$PROJECT_DIR$/domain/user.go" />
-        <option value="$PROJECT_DIR$/tweeter.go" />
         <option value="$PROJECT_DIR$/service/user_manager.go" />
         <option value="$PROJECT_DIR$/service/tweet_manager_test.go" />
         <option value="$PROJECT_DIR$/domain/tweet_test.go" />
         <option value="$PROJECT_DIR$/domain/tweet.go" />
         <option value="$PROJECT_DIR$/service/tweet_manager.go" />
+        <option value="$PROJECT_DIR$/tweeter.go" />
+        <option value="$PROJECT_DIR$/tweeter_rest.go" />
       </list>
     </option>
   </component>
@@ -140,21 +130,6 @@
             <path>
               <item name="go-twitter" type="b2602c69:ProjectViewProjectNode" />
               <item name="go-twitter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="go-twitter" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go-twitter" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="go-twitter" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go-twitter" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="go-twitter" type="b2602c69:ProjectViewProjectNode" />
-              <item name="go-twitter" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -224,9 +199,6 @@
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="tweet_manager_test_go - 2018.09.17 at 09h 57m 55s.xml">
-      <configuration name="tweet_manager_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="tweet_manager_test_go - 2018.09.17 at 10h 07m 51s.xml">
       <configuration name="tweet_manager_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -254,17 +226,20 @@
     <history-entry file="tweet_test_go - 2018.09.17 at 15h 50m 16s.xml">
       <configuration name="tweet_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="tweet_test_go - 2018.09.18 at 15h 11m 15s.xml">
+      <configuration name="tweet_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="43" width="1400" height="772" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2533137" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533137" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32941177" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32941177" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -373,11 +348,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tweeter.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="135">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
           <folding>
             <element signature="e#14#149#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tweeter_rest.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
         </state>
       </provider>
     </entry>

@@ -2,14 +2,12 @@ package main
 
 import (
 	"strconv"
-
 	"github.com/abiosoft/ishell"
 	"github.com/fngomez/go-twitter/domain"
 	"github.com/fngomez/go-twitter/service"
-
 	)
 
-func main() {
+func main2() {
 
 	tweetManager := service.NewTweetManager()
 
