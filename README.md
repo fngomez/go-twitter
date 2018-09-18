@@ -15,3 +15,5 @@ govendor add +external
 govendor fetch github.com/gin-gonic/gin@v1.3
 
 --
+
+Para traerse todas las dependencias hay que pararse en la carpeta vendor y ejecutar: govendor sync
