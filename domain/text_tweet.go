@@ -33,6 +33,14 @@ func (tweet *TextTweet) SetDate(date *time.Time) {
 	tweet.Date = date
 }
 
+func (tweet *TextTweet) SetText(text string) {
+	tweet.Text = text
+}
+
+func NewTweet(_user, _text string) *TextTweet {
+	return &TextTweet{-1,_user, _text, nil};
+}
+
 func NewTextTweet(_user, _text string) *TextTweet {
 	return &TextTweet{-1,_user, _text, nil};
 }
