@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
- var manager = service.NewTweetManager()
+var manager = service.NewTweetManager()
 
 func main() {
 	// router := gin.Default() // Redirige todos los request al localhost:8080
@@ -19,6 +19,7 @@ func main() {
 	router.POST("/tweet/add", addTweet)
 	router.GET("/tweet/user/", getTweets)
 	router.GET("external/consume/", getExternalData)
+	router.POST("tweet/users/", getTweetsOfUsers)
 
 	router.Run(":8081")
 }
@@ -43,6 +44,21 @@ func getTweets(context *gin.Context) {
 	fmt.Println(tweets)
 
 	context.JSON(200, tweets)
+}
+
+func getTweetsOfUsers(context *gin.Context) {
+	var users []dto.UserDto
+	context.BindJSON(&users)
+
+	fmt.Println(users)
+
+	res := make(map[string][]domain.Tweet)
+
+	for _, user := range users {
+		res[user.Name] = manager.GetTweetsByUser(user.Name)
+	}
+
+	context.JSON(200, res)
 }
 
 func getExternalData(context *gin.Context) {
